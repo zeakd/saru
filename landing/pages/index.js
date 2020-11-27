@@ -1,65 +1,113 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styled from '@emotion/styled';
 
 export default function Home() {
+  const [introActive, setIntroActive] = useState(false);
+  const [active, setActive] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setIntroActive(true);
+    }, 500)
+
+    setTimeout(() => {
+      setActive(true);
+    }, 1000)
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <Base active={introActive}>
+      <Overlay />
+      <Content>
+        <div>
+          <Title>Cafe Saru</Title>
+          <Divider width={20} active={active} />
+          <a href='https://saru-shop.imweb.me/'><Button>Shop</Button></a>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
+      </Content>
+    </Base>
   )
 }
+
+const Base = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-image: url('/bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: opacity 0.5s;
+  opacity: ${({ active }) => active ? 1 : 0};
+`;
+
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  background-color: rgba(0,0,0, 0.5);
+
+
+`;
+
+const Content = styled.div`
+  position: relative;
+
+  width: 100%;
+  max-width: 800px;
+  padding: 40px;
+`
+
+const Title = styled.h1`
+  font-size: 40px;
+  font-weight: 600;
+  margin: 0;
+  vertical-align: baseline;
+  /* margin: 20px 0; */
+  color: white;
+`
+
+const Divider = styled.div`
+  width: ${({ active, width }) => active ? width : 0}px;
+  height: 0;
+  border-top: solid 2px white;
+  margin: 0.5em 0;
+
+  transition: width 0.3s;
+
+`
+
+const Button = styled.button`
+  outline: 0;
+
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+  font-size: 20px;
+  padding: 10px 20px ;
+  min-width: 200px;
+
+  margin: 10px 0;
+
+  transition: background-color 0.3s;
+
+  :hover {
+    background-color: white;
+    color: #1a1a1a; 
+  }
+
+  :active {
+    background-color: #ddd;
+  }
+`
