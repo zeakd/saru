@@ -36,8 +36,13 @@ const Base = styled.div`
   right: 0;
   bottom: 0;
 
-  background-image: url('/bg.jpg');
-  background-size: cover;
+  background-size: contain;
+  background-image: url('/mobile.jpg');
+  @media (min-width: 680px) {
+    background-image: url('/bg.jpg');
+    background-size: cover;
+  }
+
   background-position: center center;
   background-repeat: no-repeat;
 
@@ -56,7 +61,7 @@ const Overlay = styled.div`
   right: 0;
   bottom: 0;
 
-  background-color: rgba(0,0,0, 0.5);
+  /* background-color: rgba(0,0,0, 0.5); */
 
 
 `;
@@ -75,13 +80,13 @@ const Title = styled.h1`
   margin: 0;
   vertical-align: baseline;
   /* margin: 20px 0; */
-  color: white;
+  color: #2a2a2a;
 `
 
 const Divider = styled.div`
   width: ${({ active, width }) => active ? width : 0}px;
   height: 0;
-  border-top: solid 2px white;
+  border-top: solid 2px #2a2a2a;
   margin: 0.5em 0;
 
   transition: width 0.3s;
@@ -92,8 +97,8 @@ const Button = styled.button`
   outline: 0;
 
   background-color: transparent;
-  border: 2px solid white;
-  color: white;
+  border: 2px solid #2a2a2a;
+  color: #2a2a2a;
   font-size: 20px;
   padding: 10px 20px ;
   min-width: 200px;
@@ -103,8 +108,8 @@ const Button = styled.button`
   transition: background-color 0.3s;
 
   :hover {
-    background-color: white;
-    color: #1a1a1a; 
+    background-color: #2a2a2a;
+    color: white; 
   }
 
   :active {
